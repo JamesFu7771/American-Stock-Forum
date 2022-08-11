@@ -2,9 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 
-// import Bookmarks from "./Bookmarks";
+import WatchList from "./WatchList";
 import HomePage from "./HomePage";
-// import Notifications from "./Notifications";
+import StockNews from "./StockNews";
+import StockEducation from "./StockEducation";
+import ChatRoom from "./ChatRoom";
+import IndividualStock from "./IndividualStock";
 // import Profile from "./Profile";
 import Header from "./Header";
 // import TweetDetails from "./TweetDetails";
@@ -19,11 +22,14 @@ const App = () => {
         <Router>
           <Header/>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            {/* <Route path="/notifications" element={<Notifications/>} />
-            <Route path="/bookmarks" element={<Bookmarks />} />
-            <Route path="/tweet/:tweetId" element={<TweetDetails />} />
-            <Route path="/:profileId" element={<Profile />} /> */}
+            <Route exact path="/HomePage" element={<HomePage />} />
+            <Route exact path="/WatchList" element={<WatchList/>} />
+            <Route exact path="/StockNews" element={<StockNews />} />
+            <Route exact path="/StockEducation" element={<StockEducation/>} />
+            <Route exact path="/ChatRoom" element={<ChatRoom />} />
+            <Route exact path="/IndividualStock" element={<IndividualStock />} />
+            {/* <Route exact path="/tweet/:tweetId" element={<TweetDetails />} /> */}
+            {/* <Route exact path="/:profileId" element={<Profile />} /> */}
           </Routes>
         </Router>
       </Wrapper>

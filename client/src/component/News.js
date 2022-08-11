@@ -3,12 +3,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 
 
-import GetApi12Data  from "./component/HandleData";
+// import getFinanceMarketNews from "./component/HandleData";
 import { MemberContext } from "./component/members/MemberContext";
-import Chart from "./component/data/Chart";
-import TestChart from "./component/data/TestChart";
 
-const HomePage = () => {
+const News = () => {
     const {marketNews} =  useContext(MemberContext);
     const { user } = useAuth0();
     console.log(typeof(marketNews));
@@ -21,11 +19,8 @@ const HomePage = () => {
     // {value.title}
 
     return (<Wrapper>
-        {/* <div>{JSON.stringify(user, null, 2)}</div> */}
-        {/* <News>{news} </News> */}
-        <GetApi12Data/>
-        <Chart symbol={"SPX"}/>
-        {/* <TestChart/> */}
+        <div>{JSON.stringify(user, null, 2)}</div>
+        <NewsDiv>{news} </NewsDiv>
 
     
     </Wrapper>)
@@ -51,7 +46,7 @@ z-index:2;
 
 const Wrapper = styled.div``;
 
-const News = styled.div`
+const NewsDiv = styled.div`
 padding-top:30px;
 display: flex;
 flex-direction: row;
@@ -60,4 +55,4 @@ height: 70vh;
 /* border: 13px solid blue; */
 `;
 
-export default HomePage;
+export default News;
