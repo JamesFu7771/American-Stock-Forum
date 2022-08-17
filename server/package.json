@@ -17,5 +17,8 @@
   "scripts": {
     "start": "node server.js",
     "dev:server": "nodemon server.js --ignore './client/'"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.4.0"
   }
 }

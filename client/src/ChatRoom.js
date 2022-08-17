@@ -1,7 +1,7 @@
 
 
 const ChatRoom = () => {
-    return <>ChatRoom</>
+    return <>ChatRoom  Coming soon!</>
 };
 
 export default ChatRoom;

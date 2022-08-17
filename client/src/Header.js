@@ -7,7 +7,7 @@ import LoginButton from "./component/auth0/LoginButton";
 import LogoutButton from "./component/auth0/LogoutButton";
 
 const Header = () => {
-    const [liId, setLiId] = useState("Home");
+    const [liId, setLiId] = useState("HomePage");
     let navigate = useNavigate();
 
     const handleClick = (e) => {

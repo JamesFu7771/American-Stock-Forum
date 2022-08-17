@@ -11,7 +11,8 @@ export const MemberProvider = ({ children }) => {
     const [marketNews,setMarketNews] = useState({});
     const [marketApiNews,setMarketApiNews] = useState({});
     const [spxData, setSpxData] = useState(null); 
-
+    const [realSpx, setRealSpx] = useState(null);
+    const [updateFeed,setUpdateFeed] = useState(false);
 
     useEffect(() => {
         console.log(user);
@@ -26,12 +27,13 @@ export const MemberProvider = ({ children }) => {
         } catch (error) {
             console.log('error', error);   
         }
-        //  fetch(`https://api.marketaux.com/v1/news/all?&language=en&api_token=${REACT_APP_MARKETAUX_TOKEN}`)
-        // .then(response => response.json())
-        // .then(result => {
-        //     console.log(result.data);
-        //     setmarketNews(result.data);
-        // })
+         fetch(`https://api.marketaux.com/v1/news/all?&language=en&api_token${process.env.REACT_APP_MARKETAUX_TOKEN}`)  //100-3
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.data);
+            setMarketNews(result.data);
+        })
+ 
     },[]);
 
     useEffect(() => {
@@ -54,9 +56,24 @@ export const MemberProvider = ({ children }) => {
         // .then(data => console.log(data))
     };
 
+    useEffect(() => {
+        // fetch('/api/me/home-feed'
+        // )
+        // .then(res=>res.json())
+        // .then(data => {
+        //     setTweetIds(data.tweetIds);
+        //     setTweetsById(data.tweetsById);
+        //     setHasLoaded("idle");
+        //     console.log("homeFeed: ",data);
+        // })
+        // .catch((error) => {
+        //     setIsError(true);
+        //     console.log("error: ",error);
+        // });
+    },[updateFeed]);
 
+    console.log("in context", updateFeed);
 
-    
 
 
 
@@ -64,12 +81,16 @@ export const MemberProvider = ({ children }) => {
         <MemberContext.Provider
             value={{
                 status,
+                realSpx,
                 setStatus,
+                updateFeed,
                 currentUser,
                 setCurrentUser,
                 isAuthenticated,
                 marketNews,
                 setSpxData,
+                setRealSpx,
+                setUpdateFeed,
                 // getFinanceMarketNews,
             }}
             >

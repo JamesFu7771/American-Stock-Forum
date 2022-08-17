@@ -16,11 +16,12 @@ const StockNews = () => {
     useEffect(() => {
         try {
             console.log("in news effect");
-            // const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_APINEWS}`;
-            const url ="";
+            const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_APINEWS}`;
+            // const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=process.env.REACT_APP_MARKETAUX_TOKEN`;
+            // const url ="";
             console.log("news api:", url);
-            const sessionResult = sessionStorage.getItem("result");
-            console.log(sessionResult);
+            // const sessionResult = sessionStorage.getItem("result");
+            // console.log(sessionResult);
             // setTimeout( async () => {
                 fetch(url)
                 .then(res => res.json())
@@ -50,7 +51,7 @@ const StockNews = () => {
     if (marketApiNews.articles !== undefined) {
         news = Object.values(marketApiNews.articles).map((value) => {
             return <IndividualNews>
-                {/* <ImageU src={value.urlToImage} alt={value.title} /> */}
+                <ImageU src={value.urlToImage} alt={value.title} />
                 <AAa href={value.url} key={value.source.id} >{value.title}</AAa>
             </IndividualNews>
         });
@@ -78,13 +79,13 @@ text-decoration:none;
 const IndividualNews = styled.div`
 width: 33%;
 display: flex;
-flex-direction: column;
+flex-direction: row;
 justify-content: space-between;
 /* align-items: center; */
 gap:20px;
 margin: 10px;
 background-color: rgba(243,243,243, 0.8);
-/* border: 2px solid grey; */
+border: 2px solid grey;
 `;
 
 const ImageU = styled.img`

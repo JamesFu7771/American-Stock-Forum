@@ -9,7 +9,6 @@ const getFinanceMarketNews = () => {
     // .then(response => response.text())
     // .then(result => console.log(result))
     // .catch(error => console.log('error', error));
-
 };
 
 const GetApi12Data = () => {
@@ -18,7 +17,7 @@ const GetApi12Data = () => {
     const data = null;
     const url = `https://api.twelvedata.com/time_series?apikey=${process.env.REACT_APP_APIDATA}&interval=1min&symbol=SPX&previous_close=true&format=JSON`;
     console.log("12data:==================", process.env.REACT_APP_APIDATA, process.env.REACT_APP_APINEWS);
-    
+
     // useEffect(() => {
     //     console.log("fetch-------------------------");
     //     fetch(url)

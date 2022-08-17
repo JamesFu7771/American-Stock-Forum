@@ -4,7 +4,7 @@
 const express = require('express');
 const {addNews, lastNewsUpdatedNews, addApiNews} = require('./handleNews');
 const {getFinanceMarketNews} = require("./handlefinanceMarketNews");
-const {addData, getData} = require("./handleData");
+const {addData, getData, postComment, getComments, postwatchList, getwatchList} = require("./handleData");
 const PORT = 8000
 
 express()
@@ -25,11 +25,20 @@ express()
 
     .get("/api/stockData/:symbol", getData)
 
+    .get("/api/comments", getComments)
+
+
+    .get("/api/watchlist", getwatchList)
+
     .post("/api/news", addNews)
 
     .post("/api/apinews", addApiNews)
 
     .post("/api/stockData", addData)
+
+    .post("/api/comment", postComment)
+
+    .post("/api/watchlist", postwatchList)
 
 
     .listen(PORT, () => {
