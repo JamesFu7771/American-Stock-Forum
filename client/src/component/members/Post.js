@@ -18,16 +18,19 @@ const Post = () => {
 
     // const userInfo = JSON.stringify(user, null, 2);
 
-    console.log("user5555555555555555555555555",user );
-    const userEmail = user.email;
-    // const userEmail = user.email === undefined ? "" : userInfo["email"] ;
+    // const userEmail = userInfo === undefined ? "" : userInfo["email"] ;
+    if  (user===null || user===undefined) {
+        return <h1>not a member, can't post!</h1>
+    };
 
-    // console.log("user5555555555555555555555555",typeof(userEmail),userEmail,updateFeed );
+
+    const userEmail = user.email;
+
+    console.log("user5555555555555555555555555",typeof(userEmail),userEmail,updateFeed );
 
     const handleCount = (e) => {
         setPostContext(e.target.value);
         setCount(280-postContext.length);
-
     
         if (count < 0) {
             setInLimit(true);
@@ -45,36 +48,34 @@ const Post = () => {
         const timestamp = new Date().toISOString();
         ev.preventDefault();
         console.log("==========================postContext: ",postContext);
-        if (userEmail !==null & userEmail !== undefined) {
-            fetch("/api/comment",{
-                method: "POST",
-                body: JSON.stringify({
-                    status: postContext,
-                    author: userEmail,
-                    nickname:user.nickname,
-                    timestamp: moment(timestamp).format("LLLL"),
+        fetch("/api/comment",{
+            method: "POST",
+            body: JSON.stringify({
+                status: postContext,
+                author: userEmail,
+                nickname:user.nickname,
+                timestamp: moment(timestamp).format("LLLL"),
 
-                }),
-                headers : { 
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(res => {
-                // if (res.status !== "200") {
-                //     console.log(res.status);
-                //     throw new Error("error ------------")
-                // };
-                return res.json()})
-            .then(data => {
-                console.log("post ok?  b4 updateFeed: ", updateFeed);
-                setUpdateFeed(!updateFeed);
-                // if (data.profile.handle !==undefined) {
-                setPostContext("");
-                console.log("post ok?after updateFeed: ", updateFeed);
+            }),
+            headers : { 
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(res => {
+            // if (res.status !== "200") {
+            //     console.log(res.status);
+            //     throw new Error("error ------------")
+            // };
+            return res.json()})
+        .then(data => {
+            console.log("post ok?  b4 updateFeed: ", updateFeed);
+            setUpdateFeed(!updateFeed);
+            // if (data.profile.handle !==undefined) {
+            setPostContext("");
+            console.log("post ok?after updateFeed: ", updateFeed);
 
-                    // }
+                // }
             });
-        };
 
     };
 

@@ -27,16 +27,28 @@ const HomePage = () => {
 
     return (<Wrapper>
         {/* <div>{JSON.stringify(user, null, 2)}</div> */}
-        {/* <HomeIndex/>----- */}
-        {/* <Nnews><News/> </Nnews>---- */}
+        <HomeSide>
+            <HomeIndex symbol={"IXIC"} />
+            <HomeIndex symbol={"DJI"} />
+            <HomeIndex symbol={"SPX"} />
+        </HomeSide>
+        <Nnews><News/> </Nnews>
         {/* <NewsWidth><StockNews/></NewsWidth> */}
         {/* <Chart symbol={"SPX"}/> */}
-        {/* <TestChart data={"Spx"} timePeriod={"1week"} /> ----*/}
+        {/* <TestChart data={"Spx"} timePeriod={"1week"} /> */}
         {/* <GetApi12Data/> */}
     
     </Wrapper>)
 
 };
+
+const HomeSide = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: flex-start;
+gap: 45px;
+/* margin-bottom: 300px; */
+`;
 
 const NewsWidth =styled.div`
 width: 50%;

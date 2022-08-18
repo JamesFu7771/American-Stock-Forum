@@ -16,8 +16,8 @@ const StockNews = () => {
     useEffect(() => {
         try {
             console.log("in news effect");
-            const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_APINEWS}`;
-            // const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=process.env.REACT_APP_MARKETAUX_TOKEN`;
+            // const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_APINEWS}`;
+            const url=`https://newsapi.org/v2/top-headlines?country=us&apiKey=623c29e722694dd3acef617bea241d89`;
             // const url ="";
             console.log("news api:", url);
             // const sessionResult = sessionStorage.getItem("result");

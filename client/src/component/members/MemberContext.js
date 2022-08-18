@@ -27,13 +27,12 @@ export const MemberProvider = ({ children }) => {
         } catch (error) {
             console.log('error', error);   
         }
-         fetch(`https://api.marketaux.com/v1/news/all?&language=en&api_token${process.env.REACT_APP_MARKETAUX_TOKEN}`)  //100-3
+         fetch(`https://api.marketaux.com/v1/news/all?&language=en&api_token=${process.env.REACT_APP_MARKETAUX_TOKEN}`)  //100-3
         .then(response => response.json())
         .then(result => {
             console.log(result.data);
             setMarketNews(result.data);
         })
- 
     },[]);
 
     useEffect(() => {

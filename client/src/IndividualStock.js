@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import TestChart from "./component/data/TestChart";
 import Post from "./component/members/Post";
 import Comments from './component/members/Comments/Comments';
+import { MemberContext } from "./component/members/MemberContext";
+
 
 const IndividualStock = () => {
     const [symbolName, setSymbolName] = useState("AAPL");
     const [timePeriod, setTimePeriod] = useState("1day");
+    const {updateFeed, setUpdateFeed} = useContext(MemberContext);
     // let symbolName = "AAPL";
     // let timePeriod = "1day";
 
@@ -44,7 +47,7 @@ const IndividualStock = () => {
                 </FormD>
             </GotStock>
         </Header>
-        <Comments/>
+        <Comments upd={updateFeed} />
 
 
     </Wrapper>

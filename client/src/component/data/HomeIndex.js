@@ -9,18 +9,17 @@ import { MemberContext } from "../members/MemberContext";
     // .then(response => response.text())
     // .then(result => console.log(result))
     // .catch(error => console.log('error', error));
-
 // };
 
-const HomeIndex = () => {
+const HomeIndex = ({symbol}) => {
     const [homeSpx, setHomeSpx] = useState(null);
     const {setSpxData, setRealSpx} =  useContext(MemberContext);
-    // const [spxData, setSpxData] = useState(null);    
+    const [updateData, setupdateData] = useState(false);    
     const data = null;
     // const url = `https://api.twelvedata.com/time_series?apikey=${process.env.REACT_APP_APIDATA}&interval=1min&symbol=SPX&previous_close=true&format=JSON`;
-    const url = `https://api.twelvedata.com/quote?symbol=SPX&apikey=${process.env.REACT_APP_APIDATA}`;
+    const url = `https://api.twelvedata.com/quote?symbol=${symbol}&apikey=${process.env.REACT_APP_APIDATA}`;
 
-    console.log("12data:==================", process.env.REACT_APP_APIDATA, process.env.REACT_APP_APINEWS);
+    // console.log("12data:==================", process.env.REACT_APP_APIDATA, process.env.REACT_APP_APINEWS);
 
     useEffect(() => {
         console.log("fetch-------------------------");
@@ -31,16 +30,17 @@ const HomeIndex = () => {
             setRealSpx(res);
             console.log("res:", res);
             })
-    },[]);
+    },[updateData]);
+
+    // let timerId = setInterval(() => setupdateData(!updateData), 5000);
 
     if (homeSpx !== null) {
         
         return <Wrapper>
             <InSide change={homeSpx.change}>
-                <Mainh2><span>{homeSpx.symbol}</span><span>{homeSpx.open}</span> </Mainh2>
-                <DetailPrice><span>{homeSpx.change}</span><span>{homeSpx.percent_change}</span></DetailPrice>
+                <Mainh2><span>{homeSpx.symbol}</span>&nbsp;&nbsp;<span>{homeSpx.open}</span> </Mainh2>
+                <DetailPrice><span>{homeSpx.change}</span>&nbsp;&nbsp;<span>{homeSpx.percent_change}</span></DetailPrice>
             </InSide>
-
         </Wrapper>
         
     } else {
@@ -55,16 +55,17 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 background-color: ${props=> props.change > 0 ? "green" : "red"};
-padding-top: 10%;
+border-radius: 12px;
+padding: 10% 25% 10% 25%;
+/* padding-bottom: 10%; */
 width: 100%;
-height: 40%;
+height: 100%;
 `;
 
 const DetailPrice=styled.div`
 display: flex;
 justify-content: space-around;
 font-size: 28px;
-
 `;
 
 const Mainh2=styled.span`
@@ -77,7 +78,7 @@ font-size: 32px;
 
 const Wrapper=styled.div`
 width: 300px;
-height: 300px;
+height: 200px;
 display: flex;
 align-items: center;
 /* gap: 30px; */

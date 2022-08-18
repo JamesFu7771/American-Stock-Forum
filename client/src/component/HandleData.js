@@ -15,7 +15,7 @@ const GetApi12Data = () => {
     const {setSpxData} =  useContext(MemberContext);
     // const [spxData, setSpxData] = useState(null);    
     const data = null;
-    const url = `https://api.twelvedata.com/time_series?apikey=${process.env.REACT_APP_APIDATA}&interval=1min&symbol=SPX&previous_close=true&format=JSON`;
+    // const url = `https://api.twelvedata.com/time_series?apikey=${process.env.REACT_APP_APIDATA}&interval=1min&symbol=SPX&previous_close=true&format=JSON`;
     console.log("12data:==================", process.env.REACT_APP_APIDATA, process.env.REACT_APP_APINEWS);
 
     // useEffect(() => {
