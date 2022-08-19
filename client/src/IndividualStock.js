@@ -2,9 +2,8 @@ import { useState, useContext } from "react";
 import styled from "styled-components";
 import TestChart from "./component/data/TestChart";
 import Post from "./component/members/Post";
-import Comments from './component/members/Comments/Comments';
+import Comments from './component/members/CommentsFolder/Comments';
 import { MemberContext } from "./component/members/MemberContext";
-
 
 const IndividualStock = () => {
     const [symbolName, setSymbolName] = useState("AAPL");
@@ -29,10 +28,8 @@ const IndividualStock = () => {
         //     let updateResult= await updateSeatStatus(flight, seatNo, false);
 
             console.log("go to fetch:", symbolName, timePeriod);
-
     };
 
-    
     return <Wrapper>
         <Header>
             <PostComments>
@@ -48,7 +45,6 @@ const IndividualStock = () => {
             </GotStock>
         </Header>
         <Comments upd={updateFeed} />
-
 
     </Wrapper>
 };

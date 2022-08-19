@@ -28,6 +28,7 @@ const News = () => {
     // {value.title}
 
     return (<Wrapper>
+        <Hh2>Today's Top News:</Hh2>
         {/* <div>{JSON.stringify(user, null, 2)}</div> */}
         <NewsDiv>{marketNews === undefined? "   Loading..." : news} </NewsDiv>
 
@@ -36,9 +37,16 @@ const News = () => {
 
 };
 
+const Hh2=styled.span`
+font-size: 28px;
+color: greenyellow;
+font-style: italic;
+`;
+
 const NewsContext=styled.div`
 display: flex;
 flex-direction: row;
+gap: 18px;
 `;
 
 const IndividualNews = styled.div`
@@ -48,8 +56,10 @@ flex-direction: column;
 /* justify-content: center; */
 align-items: flex-start;
 gap:30px;
-background-color: rgba(243,243,243, 0.8);
-/* border: 2px solid red; */
+padding: 13px;
+background-color: rgba(243,243,243, 0.1);
+border: 2px solid rgba(243,243,243, 0.1);
+border-radius: 12px;
 `;
 
 const ImageU = styled.img`
@@ -66,11 +76,11 @@ height: 100%;
 `;
 
 const NewsDiv = styled.div`
-padding-top:30px;
+/* padding-top:10px; */
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
-gap: 40px;
+/* gap: 40px; */
 height: 100%;
 /* border: 13px solid blue; */
 `;

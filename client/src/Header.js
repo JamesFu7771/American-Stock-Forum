@@ -14,8 +14,7 @@ const Header = () => {
         console.log(e.target.id);
         setLiId(e.target.id);
         navigate(`/${e.target.id}`);
-        
-    }
+    };
 
 
     return <Wrapper>
@@ -29,17 +28,16 @@ const Header = () => {
                 <LogoutButton />
             </UserLoginOut>
         </Titile>
-        <Menuul >
+        <MenuUl >
             <Menuli><Menuinput type="radio" name="menu" id="HomePage" isSelected={"HomePage" === liId } onClick={(e) => handleClick(e)} /><label htmlFor="HomePage">Home</label></Menuli>
             <Menuli><Menuinput type="radio" name="menu" id="StockEducation" isSelected={"StockEducation" === liId} onClick={(e) => handleClick(e)} /><label htmlFor="StockEducation"> Stock Education</label></Menuli>
             <Menuli><Menuinput type="radio" name="menu" id="ChatRoom" isSelected={"ChatRoom"=== liId} onClick={(e) => handleClick(e)} /><label htmlFor="ChatRoom"> Chat Room</label></Menuli>
             <Menuli><Menuinput type="radio" name="menu" id="StockNews" isSelected={"StockNews"=== liId} onClick={(e) => handleClick(e)} /><label htmlFor="StockNews">News</label></Menuli>
             <Menuli><Menuinput type="radio" name="menu" id="IndividualStock" isSelected={"IndividualStock"=== liId} onClick={(e) => handleClick(e)} /><label htmlFor="IndividualStock">Individual Stock</label></Menuli>
             <Menuli><Menuinput type="radio" name="menu" id="WatchList" isSelected={"WatchList"=== liId} onClick={(e) => handleClick(e)} /><label htmlFor="WatchList">WatchList</label></Menuli>
-        </Menuul>
+        </MenuUl>
     </Wrapper>
 };
-
 
 const Menuinput = styled.input`
 display:none;
@@ -70,7 +68,7 @@ const Wrapper = styled.div`
 /* border:4px solid red; */
 `;
 
-const Menuul=styled.ul`
+const MenuUl=styled.ul`
   list-style-type: none;
   width: 100vw;
   padding: 0 15px;
@@ -87,12 +85,12 @@ const Menuul=styled.ul`
   justify-items: baseline;
   align-items:center;
   font-size: 25px;
-  border: 2px solid white;
+  /* border: 2px solid white; */
   `;
 
 const Menuli=styled.li`
 text-align: center;
-border: 2px solid red;
+/* border: 2px solid red; */
 float: left;
 display: block;
 height: 100%;

@@ -43,7 +43,7 @@ const Wrapper=styled.div`
 display:flex;
 flex-direction: column;
 /* padding-right: 250px; */
-border:2px solid red;
+/* border:2px solid red; */
 `;
 
 

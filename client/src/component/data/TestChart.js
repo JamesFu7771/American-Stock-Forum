@@ -5,11 +5,13 @@ import HighchartsReact from 'highcharts-react-official';
 import styled from 'styled-components';
 import moment from 'moment';
 import { timeParse } from 'd3-time-format';
+import defaultAvatar from "../../FP_20220818184520.jpg";
 
 const TestChart = ({data, timePeriod}) => {
 
     const symbol=data;
     const [stock, setStock] = useState(null);
+    const [apiNoCredit, setApiNoCredit] = useState(false);
     const parseTime =timeParse("%Y-%m-%d %H:%M:%S");
     console.log("000000000000000000000000000000000000",symbol,timePeriod);
 
@@ -24,12 +26,13 @@ const TestChart = ({data, timePeriod}) => {
         .then(res =>{
             setStock(res);
             console.log("res:", res);
+            res.code === 429 && setApiNoCredit(true);
         })
     },[]);
     let stockCategories = new Array();
     let stockData = new Array();
     
-    if (stock !== null & stock !== undefined) {
+    if (stock !== null & stock !== undefined & apiNoCredit === false) {
         Object.values(stock.values).map((item) => {
             let x;
             if (item["datetime"].length <11) {
@@ -43,8 +46,6 @@ const TestChart = ({data, timePeriod}) => {
             stockData.push({x,y});
             stockCategories.push(x);
         });
-
-
 
     };
 
@@ -67,78 +68,9 @@ const TestChart = ({data, timePeriod}) => {
                 // enable: true
                 format: '{values:%y-%m-%d %H:%M:%S}'
             },
-            // dateTimeLabelFormats:{
-                // day: '%Y-%m-%d'
-            //     millisecond:"%H:%M:%S.%L",
-            //     second: '%H:%M:%S',
-            //     minute: "%H:%M",
-            //     hour:'%H:%M',
-            //     day: '%m-%d',
-            //     week: '%m-%d',
-            //     month: '%y-%m',
-            //     year: '%Y'
-            // },
-            // tickInterval: 24 * 3600 *1000,
-            // events: {
-            //     setExtremes: function(e) {
-            //         console.log(this);
-            //         if(typeof(e.rangeSelectorButton)!== 'undefined')
-            //         {
-            //             alert('count: '+e.rangeSelectorButton.count + 'text: ' +e.rangeSelectorButton.text + ' type:' + e.rangeSelectorButton.type);
-            //         }
-            //     }
-            // }
-
         }, 
-        // rangeSelector: {
-        //     enabled: true,
-        //     allButtonsEnabled: true,
-        //     inputEnabled: true,
-        //     buttons: [{
-        //       type: 'month',
-        //       count: 1,
-        //       text: '1m'
-        //     }, {
-        //       type: 'month',
-        //       count: 3,
-        //       text: '3m'
-        //     }, {
-        //       type: 'all',
-        //       text: 'All'
-        //     }],
-        //     selected: 2
-        //   },   
 
     };
-
-    // Highcharts.stockChart('container',{
-        // xAxis: {
-        //     categories: ["1660159800000","1660159860000", "1660159920000"]
-        // },
-    //     title: {
-    //         text: 'Highcharts Annotations'
-    //     },
-    //     series: [
-    //         {
-    //             name: 'SPX',
-    //             data: [[4,{y:1, id: "min"}], [6,34], [8,{y:6, id:"max"}]],
-    //             tooltip: {
-    //                 valueDecimals: 2
-    //             }
-    //         }
-    //     ],
-    //     annotations: [{
-    //         labels: [{
-    //             point: "max",
-    //             text: "Max"
-    //         },{
-    //             point: "min",
-    //             text: "Min",
-    //             backgroundColor: "white"
-    //         }]
-    //     }]
-
-    // });
 
 
     return <Wrapper >
@@ -148,6 +80,8 @@ const TestChart = ({data, timePeriod}) => {
             highcharts={Highcharts}
             constructorType={'stockChart'}
             options={options}
+            opacity={0.1}
+            plotBackgroundImage={`url(${defaultAvatar})`}
         />
     </Wrapper>
 };
@@ -160,8 +94,10 @@ const Ddiv = styled.div`
 const Wrapper = styled.div`
 height: 100%;
 width: 500px;
-background-color: rgba(243,243,263, 0.1);
-border: 2px solid grey;
+padding-top: 90px;
+/* background-color: rgba(243,243,263, 0.1); */
+/* border: 2px solid grey; */
+/* background-image: url(${defaultAvatar}); */
 `;
 
 

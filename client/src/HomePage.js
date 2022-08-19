@@ -10,6 +10,7 @@ import TestChart from "./component/data/TestChart";
 import StockNews from "./StockNews";
 import News from "./component/News";
 import HomeIndex from "./component/data/HomeIndex";
+import defaultAvatar from "./FP_20220818184520.jpg";
 
 const HomePage = () => {
     const {marketNews} =  useContext(MemberContext);
@@ -35,7 +36,7 @@ const HomePage = () => {
         <Nnews><News/> </Nnews>
         {/* <NewsWidth><StockNews/></NewsWidth> */}
         {/* <Chart symbol={"SPX"}/> */}
-        {/* <TestChart data={"Spx"} timePeriod={"1week"} /> */}
+        <TestChart data={"Spx"} timePeriod={"1week"} />
         {/* <GetApi12Data/> */}
     
     </Wrapper>)
@@ -72,11 +73,16 @@ z-index:2;
 `;
 
 const Wrapper = styled.div`
-padding-top:30px;
+padding-top:25px;
+height: 85vh;
 display: flex;
 flex-direction: row;
 justify-content: space-evenly;
 align-items: center;
+background-image: url(${defaultAvatar});
+background-size: 100%;
+background-repeat: no-repeat;
+background-size: cover;
 /* border: 13px solid red; */
 `;
 
@@ -86,7 +92,7 @@ display: flex;
 flex-direction: column;
 justify-content: space-evenly;
 height: 70vh;
-width: 50%;
+width: 45%;
 /* border: 13px solid blue; */
 `;
 
