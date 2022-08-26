@@ -29,8 +29,6 @@ const App = () => {
             <Route exact path="/StockEducation" element={<StockEducation/>} />
             <Route exact path="/ChatRoom" element={<ChatRoom />} />
             <Route exact path="/IndividualStock" element={<IndividualStock />} />
-            {/* <Route exact path="/tweet/:tweetId" element={<TweetDetails />} /> */}
-            {/* <Route exact path="/:profileId" element={<Profile />} /> */}
           </Routes>
         </Router>
       </Wrapper>
