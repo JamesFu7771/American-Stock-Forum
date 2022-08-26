@@ -10,7 +10,6 @@ import ChatRoom from "./ChatRoom";
 import IndividualStock from "./IndividualStock";
 // import Profile from "./Profile";
 import Header from "./Header";
-// import TweetDetails from "./TweetDetails";
 import GlobalStyles from "./GlobalStyles";
 import styled from "styled-components";
 
