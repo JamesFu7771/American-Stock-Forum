@@ -1,12 +1,10 @@
 'use strict';
 
 const { MongoClient } = require("mongodb");
-const { v4: uuidv4 } = require("uuid");
-const moment = require("moment");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
-// const _id = uuidv4();
+
 
 const options = {
     useNewUrlParser: true,
@@ -24,12 +22,8 @@ const getAllComments = async (page, size) => {
 
         // connect dataBase
         await client.connect();
-        console.log("connected!");
-        console.log("in getComments:");
-        // const symbol = Object.keys(req.body);
-        // const result = await db.collection("comments").findMany();
 
-        const cursor = filterable ? await db.collection("comments").find().skip((page) * size).limit(size)
+        const cursor = filterable ? await db.collection("comments").find().sort({"timestamp":-1}).skip((page) * size).limit(size)
             : await db.collection("comments").find();
 
         const hasNext = await cursor.hasNext();
@@ -39,8 +33,8 @@ const getAllComments = async (page, size) => {
         if (filterable) {
             result["hasNext"] = hasNext;
         };
-
         return result;
+
     } catch (err) {
         return {
             ok: false,
@@ -48,7 +42,7 @@ const getAllComments = async (page, size) => {
         };
     } finally {
         await client.close();
-        console.log("disconnected");
+        // disconnected
     };
 
 };

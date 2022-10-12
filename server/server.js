@@ -1,17 +1,13 @@
 
-
-// const path = require('path');
 const express = require('express');
 const {addNews, lastNewsUpdatedNews, addApiNews} = require('./handleNews');
-const {getFinanceMarketNews} = require("./handlefinanceMarketNews");
-const {addData, getData, postComment, getComments, postwatchList, getwatchList} = require("./handleData");
+const {addData, getData, postComment, getComments, addWatchList, getwatchList} = require("./handleData");
 const PORT = 8000
 
 express()
     .use(express.json())
 
     .get('/', (req, res) => {
-        console.log("here is server get");
         res.status(200).json({
             status: "success",
             data: "here is server get",
@@ -20,8 +16,6 @@ express()
     })
 
     .get("/api/lastUpdatednews", lastNewsUpdatedNews)
-
-    .get("/financeMarketNews", getFinanceMarketNews)
 
     .get("/api/stockData/:symbol", getData)
 
@@ -38,7 +32,7 @@ express()
 
     .post("/api/comment", postComment)
 
-    .post("/api/watchlist", postwatchList)
+    .post("/api/watchlist", addWatchList)
 
 
     .listen(PORT, () => {

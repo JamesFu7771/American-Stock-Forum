@@ -9,25 +9,13 @@ const IndividualStock = () => {
     const [symbolName, setSymbolName] = useState("AAPL");
     const [timePeriod, setTimePeriod] = useState("1day");
     const {updateFeed, setUpdateFeed} = useContext(MemberContext);
-    // let symbolName = "AAPL";
-    // let timePeriod = "1day";
 
     const submitFunc = async (ev) => {
-        ev.preventDefault();
-        console.log("Form click and HERE:========================================================");
-        
+        ev.preventDefault();        
         let tempSy = ev.target[0].value.toUpperCase();
         let tempPe = ev.target[1].value.toLowerCase();
         setSymbolName(tempSy);
         setTimePeriod(tempPe);
-
-        // const oldSeatNo = await checkReservation(email, setHasReservation, seatNo, flight);
-
-        // console.log("oldSeatNo----updateResult",oldSeatNo);
- 
-        //     let updateResult= await updateSeatStatus(flight, seatNo, false);
-
-            console.log("go to fetch:", symbolName, timePeriod);
     };
 
     return <Wrapper>
@@ -44,7 +32,7 @@ const IndividualStock = () => {
                 </FormD>
             </GotStock>
         </Header>
-        <Comments upd={updateFeed} />
+        <Comments key={updateFeed} />
 
     </Wrapper>
 };
@@ -57,7 +45,6 @@ justify-content: space-around;
 
 const PostComments = styled.div`
 width: 50%;
-
 `;
 
 const GotStock= styled.div`
@@ -67,13 +54,11 @@ justify-content: center;
 align-items: flex-end;
 gap: 50px;
 height: 400px;
-
 `;
 
 const Wrapper=styled.div`
 display: flex;
 flex-direction: column;
-/* justify-content: space-around; */
 `;
 
 const FormD = styled.form`
@@ -83,11 +68,8 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 gap: 30px;
-/* height: 150px; */
 height: 100%;
-/* width: 550px; */
 padding: 40px;
-/* border: 3px solid red; */
 `;
 
 const SymbolInput = styled.input`

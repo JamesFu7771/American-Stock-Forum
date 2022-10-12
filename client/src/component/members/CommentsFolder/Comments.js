@@ -1,39 +1,19 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Comment from "./Comment";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { MemberContext } from "../MemberContext";
-
 
 const Comments = () => {
-    const {updateFeed, setUpdateFeed} = useContext(MemberContext);
     const [comments, setComments] = useState([]);
     const [hasNext, setHasNext] = useState(true);
     const [status, setStatus] = useState("loading");
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(21);
+    const [size, setSize] = useState(6);
     const refreshTimeout = 200;
 
-    
     useEffect(() => {
-        fetchNextPage();
+      fetchNextPage();
     }, []);
-    
-    useEffect(() => {
-        
-        console.log("updateFeed  8888888888888888 in Effect", updateFeed);
-        fetchComments();
-    },[updateFeed]);
-
-    // useEffect(() => {
-    //     const fetchUsers = async () => {
-    //       const response = await fetch('/api/users');
-    //       const fetchedUsers = await response.json();
-    //       setUsers(fetchedUsers.data);
-    //     };
-    //     fetchUsers();
-    //   }, []);
-    
 
     const fetchComments = () => {
         const url = `/api/comments?page=${page}&size=${size}`;
@@ -49,14 +29,13 @@ const Comments = () => {
                 console.log(res);
                 setPage(page + 1);
                 setHasNext(res.hasNext);
-                const temp = Object.values(res.data);
-                console.log("in Comments 3333333333333333333", res.data,temp[0].comment, typeof(temp));
-                setComments(temp.reverse());
-
+                const temp = comments.concat(Array.from(res.data));
+                console.log("in Comments 3333333333333333333", res.data,temp[0].status, typeof(temp));
+                setComments(temp);
                 setStatus("loaded");
             })
             .catch((error) => {
-                console.log(error);
+              console.log(error);
                 setStatus("error");
             });
     };
@@ -64,7 +43,7 @@ const Comments = () => {
     const fetchNextPage = () => {
         if (!hasNext) {
             return;
-        }
+        };
 
         setTimeout(function () {
             fetchComments();
@@ -79,7 +58,7 @@ const Comments = () => {
                 <CommentsWrapper id="scrollableCommentsWrapper">
                     <InfiniteScroll
                         loader={
-                            <div style={{ height: "100vh" }}>
+                            <div style={{ height: "70vh" }}>
                               <Loader>
                                 <Spinner />
                               </Loader>
@@ -89,13 +68,10 @@ const Comments = () => {
                         next={fetchNextPage}
                         hasMore={hasNext}
                     >
-                        <ViewComment >
-                            {comments.map((comment, index) => {
-                                // console.log("comment22222222222222222", comment.status);
-                                return <Comment key={index} comment={comment} />;
-                            })}
+                      {comments.map((comment, index) => {
+                          return <Comment key={index} comment={comment} />
+                      })}
 
-                        </ViewComment>
                     </InfiniteScroll>
                 </CommentsWrapper>
 
@@ -106,22 +82,12 @@ const Comments = () => {
 
 export default Comments;
 
-const ViewComment = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: flex-start;
-align-items: flex-start;
-/* border: 1px solid red; */
-`;
 
 const CommentsWrapper = styled.div`
-  /* overflow: auto; */
-  /* height: 300, */
   margin: 0px 5% 100px 10%;
   display: flex;
   justify-content: flex-start;
-  float: left;
-  /* align-content: center; */
+  flex-direction: column;
 `;
 
 
@@ -133,25 +99,11 @@ const Loader = styled.div`
   top: 0;
   left: 0;
   float: left;
-  /* text-align: center; */
 `;
 
 const Span = styled.hr`
-  border: 2px solid black;
-  text-decoration: underline;
-  margin-top: 70px;
-  margin-left: 175px;
-  margin-right: 175px;
-  margin-bottom: 70px;
-`;
-
-const OurComments = styled.h2`
-  display: flex;
-  justify-content: center;
-  margin-top: 250px;
-  margin-left: -80px;
-  font-family: sans-serif;
-  font-size: 32px;
+  width: 84%;
+  margin: 3px 3% 4px 10%;
 `;
 
 const Spinner = styled.div`
@@ -176,7 +128,7 @@ const Spinner = styled.div`
 const Title = styled.h2`
   display: flex;
   justify-content: center;
-  margin-top: 250px;
+  margin-top: 50px;
   font-family: sans-serif;
   font-size: 32px;
 `;

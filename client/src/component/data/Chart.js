@@ -1,18 +1,13 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 import { timeParse } from 'd3-time-format';
-import { json } from 'd3-request';
-// import ReactHighstock from 'react-highcharts/ReactHighstock.src';
 import React from "react";
 import styled from "styled-components";
-import { MemberContext } from "../members/MemberContext";
 
 const Chart = () => {
 
     const parseTime =timeParse("%Y-%m-%d %H:%M:%S");
     const [priceData, setPriceData] = useState({config:{}});
-
-    console.log("here is chart...........................");
 
     let ohlc = new Array();
     let volume = new Array();
@@ -20,10 +15,8 @@ const Chart = () => {
         fetch(`/api/stockData/SPX`)
         .then(res => res.json())
         .then((result) => {
-            console.log(result.data.values);
             const data = result.data.values.map((item) => {
                 const date = parseTime(item.datetime).getTime();
-                console.log("item:---",item,date,"over");
                 ohlc.unshift([
                     date,
                     +item.open,
@@ -37,17 +30,7 @@ const Chart = () => {
                     color: (+item.open-(+item.close)) >0 ? "red" : "green"
                 });             
             });
-            // ohlc=[
-            //     [1660159800000, 4203.58984, 4203.58984, 4201.97021, 4202.97021],
-            //     [1660159860000, 4202.77002, 4202.97998, 4201.75977, 4202.97998],
-            //     [1660159920000, 4202.99023, 4203.00498, 4202.16016, 4202.6499]
-            // ];
-            // volume=[
-            //     {x:1660159800000,y:14048196,color:"red"},
-            //     {x:1660159860000,y:14249271,color:"red"},
-            //     {x:1660159920000,y:14249271,color:"red"}
-            // ];
-            console.log("ohlc-----:",ohlc);
+
             setPriceData({
                 config:{
                     rangeSelector:{
@@ -112,19 +95,16 @@ const Chart = () => {
             });
         });
     },[]);
-    console.log("priceData:", priceData.config);
-
-    console.log("priceData:===", priceData.config,"ok",Object.keys(priceData.config).length,"over");
 
 
     return (
         <Wrapper >
             <h1>AAPL PRICE CHART</h1>
             <ChartContainer>
-                {/* { Object.keys(priceData.config).length > 0 && <ReactHighstock config={priceData.config} />} */}
+                { Object.keys(priceData.config).length > 0 && <ReactHighstock config={priceData.config} />}
             </ChartContainer>
-            {/* <PriceChart
-            data={ priceData}/> */}
+            <PriceChart
+            data={ priceData}/>
         </Wrapper>
     );
 };

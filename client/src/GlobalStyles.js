@@ -58,7 +58,6 @@ h1 {
 }
 
 h4 {
-    /* font-size: calc(8px + 2vmin); */
     font-size: 20px;
 }
 a {

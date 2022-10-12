@@ -6,7 +6,6 @@ const moment = require("moment");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
-// const _id = uuidv4();
 
 const options = {
     useNewUrlParser: true,
@@ -17,32 +16,14 @@ const dbName = "stockForum";
 
 const addData = async (req, res) => {
 
-    console.log("hi here is addData ");
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db(dbName);
     try {
-        console.log("in add data:", req.body);
-        // const symbol = Object.keys(req.body);
-        const symbol = req.body;
 
         // connect dataBase
         await client.connect();
-        console.log("connected!",symbol);
     
-        // check if already a member ,if not ,add it
-        // let query = {}
-        // query[symbol] = req.body[symbol];
-        // const checkData = await db.collection("stockData").findOne(query);
         const checkData = null;
-        // const kk = Object.keys(checkData[symbol])[1];
-        // const ll = checkData[symbol][kk].length;
-        // const lasttime = checkData[symbol][kk][ll-1]["datetime"];
-        // const nowTime = moment().format("YYYY-MM-DD HH:mm:ss");
-        // let ms = nowTime.diff(moment(lasttime,"YYYY-MM-DD HH:mm:ss"),"seconds");
-        // let ms = nowTime.getTime() - lasttime.getTime();
-     
-        // console.log("checkData-----:",kk,"ok", checkData[symbol][kk][29],lasttime
-        // ,"ok",nowTime,"over");
         if (checkData===null ) {
             const result = await db.collection("stockData").insertOne(req.body);
             res.status(200).json({
@@ -60,9 +41,8 @@ const addData = async (req, res) => {
     } catch (error) {
         console.log(error);   
     } finally {
-        // close and disconnected database
+        // close and disconnect database
         client.close();
-        console.log("disconnected!");
     };
 };
 
@@ -72,7 +52,6 @@ const getData = async (req, res) => {
     try {
         const symbol = req.params.symbol;
         await client.connect();
-        console.log("connected!",symbol);
         const checkData = await db.collection("stockData").findOne({"symbol": `${symbol}`});
         if (checkData !==null || checkData !== undefined ) {
             res.status(200).json({
@@ -90,9 +69,8 @@ const getData = async (req, res) => {
     } catch (error) {
         console.log("error:", error)
     } finally {
-        // close and disconnected database
+        // close and disconnect database
         client.close();
-        console.log("disconnected!");
     };
 };
 
@@ -106,12 +84,9 @@ const getComments = async (req, res) => {
         filterable = false;
     };
 
-    console.log("page..4444444444444",page,size);
-
     const result = filterable
         ? await getAllComments(page, size)
         : await getAllComments();
-    console.log("result.Comments.length", result);
     return filterable
         ? res
             .status(200)
@@ -124,13 +99,10 @@ const postComment = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db(dbName);
     try {
-        console.log("in add data:", req.body);
-        // const symbol = Object.keys(req.body);
         const symbol = req.body;
         req.body["_id"] = uuidv4();
         // connect dataBase
         await client.connect();
-        console.log("connected!", symbol);
         const result = await db.collection("comments").insertOne(req.body);
         res.status(200).json({
             status: 200,
@@ -145,24 +117,19 @@ const postComment = async (req, res) => {
             message: "no message"
         })
     } finally {
-        // close and disconnected database
+        // close and disconnect database
         client.close();
-        console.log("disconnected!");
     };
 };
 
-const postwatchList = async (req, res) => {
+const addWatchList = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const db = client.db(dbName);
     try {
-        console.log("in postwatchList:", req.body);
-        // const symbol = Object.keys(req.body);
         const symbol = req.body;
         req.body["_id"] = uuidv4();
         // connect dataBase
         await client.connect();
-        console.log("connected!", symbol);
-        // check if already a member ,if not ,add it
         let query = {}
         query[symbol] = req.body[symbol];
         const checkData = await db.collection("stockData").findOne(query);
@@ -176,7 +143,7 @@ const postwatchList = async (req, res) => {
         } else {
             result ="";
             res.status(400).json({
-                status: 200,
+                status: 400,
                 data: result,
                 message: "no message"
             })
@@ -189,9 +156,8 @@ const postwatchList = async (req, res) => {
             message: "no message"
         })
     } finally {
-        // close and disconnected database
+        // close and disconnect database
         client.close();
-        console.log("disconnected!");
     };
 };
 
@@ -201,7 +167,7 @@ const getwatchList = async (req, res) => {
     try {
         
         await client.connect();
-        console.log("connected!");
+        // connect dataBase
         const checkData = await db.collection("watchlist").find().toArray();
         if (checkData !==null || checkData !== undefined ) {
             res.status(200).json({
@@ -219,12 +185,11 @@ const getwatchList = async (req, res) => {
     } catch (error) {
         console.log("error:", error)
     } finally {
-        // close and disconnected database
+        // close and disconnect database
         client.close();
-        console.log("disconnected!");
     };
 };
 
 
 
-module.exports = { addData, getData, postComment, getComments, postwatchList, getwatchList };
+module.exports = { addData, getData, postComment, getComments, addWatchList, getwatchList };

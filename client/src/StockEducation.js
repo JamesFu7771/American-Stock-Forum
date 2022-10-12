@@ -67,7 +67,6 @@ display: flex;
 flex-direction: column;
 justify-content: space-around;
 height: 80vh;
-/* border: 2px solid red; */
 `;
 
 
