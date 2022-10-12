@@ -26,11 +26,9 @@ const Comments = () => {
         })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 setPage(page + 1);
                 setHasNext(res.hasNext);
                 const temp = comments.concat(Array.from(res.data));
-                console.log("in Comments 3333333333333333333", res.data,temp[0].status, typeof(temp));
                 setComments(temp);
                 setStatus("loaded");
             })
